@@ -1,326 +1,205 @@
-# Konkurence v ČR — Hloubková analýza
+# Česká konkurence – aktualizovaný konkurenční deep dive
 
-*Zdroje: Hlídač státu, NEN, PROEBIZ, E-ZAK, Vhodné uveřejnění, Gemin, Portal VZ*
+**Projekt:** Endpaper / tendry  
+**Aktualizováno:** 9. 10. 2026  
+**Účel:** podklad pro validaci enterprise tender intelligence layer pro větší dodavatele; nikoliv hotová GTM strategie.  
+**Metodika:** veřejné produktové weby, oficiální ceníky a FAQ; žádný placený demo účet, mystery shopping ani nezávislé benchmarky kvality. Veřejně deklarovaná funkce ≠ prokázaná kvalitní implementace.
 
----
+> Toto je aktualizace původní analýzy z počátku října. Nahrazuje zastaralé závěry, že v ČR nikdo nenabízí AI matching, analýzu dokumentace, končící smlouvy či bid workflow. Původní text je dostupný v Git historii.
 
-## 1. MAPA EKOSYSTÉMU
+## 1. Hlavní zjištění
 
-### Státní/povinné platformy
+1. **Monitoring zakázek a základní AI matching jsou již cenově komoditizované.** Existují bezplatné a velmi levné alternativy.
+2. **TenderLab** už nabízí monitoring, skóre shody, AI rozbor zadání, kvalifikační gap analysis, bid pipeline, AI asistenta nad firmou a návrh nabídky v DOCX. Nelze vůči němu diferencovat jen pomocí „AI bid assistant“.
+3. **QCM** má distribuci a přístup k české zadávací infrastruktuře. Na 20. 10. 2026 avizuje nový Portál Dodavatele včetně analytiky a balíčku Business; přesné funkce je třeba potvrdit na webináři/demu.
+4. **NENDE** už má radar dobíhajících smluv a AI shrnutí dokumentace; **dZakazky** má konkurenty, Kanban a webhooky; **Veritra** má multicountry data, API a AI beta.
+5. Příležitost pro Endpaper se musí dokazovat **hloubkou enterprise procesu** (bid/no-bid v kontextu kapacit a profitability, schvalování, právní compliance, role, audit, interní data, pre-RFP signály), nikoliv absencí základních funkcí u konkurence.
+6. Negativní zjištění z veřejného webu se zapisuje „**není veřejně doloženo**“, nikoliv „produkt to nemá“.
 
-| Platforma | Provozovatel | Role | Uživatelé |
-|-----------|--------------|------|-----------|
-| **NEN** | MMR/NIPEZ | Povinný e-nástroj pro zadávání | 24.6K zadavatelů, 42.7K dodavatelů |
-| **VVZ** (Věstník VZ) | MMR | Publikace oznámení | Povinné pro zakázky nad limit |
-| **TED** | EU | EU-wide publikace | Povinné pro nadlimitní |
-| **Portal VZ** | MMR | Metodika, vzdělávání | Informační hub |
+## 2. Segmentace konkurence
 
-### Komerční e-nástroje (pro zadavatele)
+| Kategorie | Hráči | Vztah k Endpaperu |
+|---|---|---|
+| Dodavatelská intelligence + bidding | TenderLab, QCM Portál Dodavatele, NENDE, dZakazky, Veritra, TenderSignal, Hello Tender, NajdiVZ | Přímá či částečná konkurence |
+| Oficiální discovery a veřejná data | Zakázky GOV, VVZ, TED, NEN, Hlídač státu | Bezplatná konkurence v základní datové vrstvě; možné datové zdroje |
+| Elektronické zadávací nástroje | E-ZAK, JOSEPHINE, Tender arena, PVÚ, TENDERBOX | Primárně workflow zadavatele a podání, ne totéž co interní bid management dodavatele |
 
-| Platforma | Provozovatel | Tržní podíl | Pricing |
-|-----------|--------------|-------------|---------|
-| **Vhodné uveřejnění** | QCM s.r.o. | **33% všech zadavatelů** | 2-20K Kč/rok |
-| **E-ZAK** | QCM s.r.o. | 13K zadavatelů, 62K users | Licence nebo pronájem |
-| **JOSEPHINE** | PROEBIZ | CEE focus | Trial + subscription |
-| **Tenderbox** | PROEBIZ | 500+ firem | Trial + subscription |
-| **Gemin** | ? | 55K zakázek | **Free** |
+## 3. Ceníkový benchmark (9. 10. 2026)
 
-### Monitoring/intelligence (pro dodavatele)
+| Produkt | Veřejná cena | Model / poznámky | Zdroj |
+|---|---|---|---|
+| TenderLab Software | **6 490 Kč/měsíc / 5 uživatelů**; **5 490 Kč/měsíc** při roční fakturaci | 14 dní zdarma, servis individuálně | https://tenderlab.cz/ ; https://tenderlab.cz/terms |
+| NENDE | **Free**; **2 900 Kč/rok Basic**; **9 900 Kč/rok Premium** | bez DPH, AI analýza v Premium, radar končících smluv od Basic | https://nende.cz/cs/cenik |
+| dZakazky | akčně **420 Kč/měs.**, **4 200 Kč/rok** (na webu i běžné ceny 890 Kč/měs., 8 900 Kč/rok) | Self-service, 5 dní trial; změny akce možné | https://dzakazky.cz/ |
+| Veritra | pro ČR **11 €/země/měs.** nebo **120 €/země/rok** dle vícejazyčného ceníku; český web může zobrazovat Kč | Sleva podle počtu zemí; AI analýza beta, podle spotřeby | https://veritra.io/pricing ; https://www.veritra.io/nl/pricing |
+| TenderSignal | **29 €/měsíc**, 14 dní zdarma | IT zakázky v CZ/SK/PL | https://tendersignal.eu/cz |
+| Hello Tender | **Free**, **19 €/měs. Plus**, **69 €/měs. Pro Unlimited** | Uvedené ceny při roční fakturaci; cena bez DPH | https://www.hellotender.eu/en/pricing |
+| NajdiVZ | od **990 Kč/měs.** rozšířené hledání; **1 190 Kč/měs.** s monitoringem; **4 990 Kč/měs.** na míru | Bez DPH; XML/Excel export u tarifu na míru, API deklaruje v produktu | https://www.najdivz.cz/balicky-sluzeb |
+| Zakázky GOV | **Zdarma** | Státní projekt; dostupnost podání závisí na podpoře konkrétního zadávacího nástroje | https://zakazky.gov.cz/ |
+| Hlídač státu | veřejné použití zdarma; komerční API **12 000 Kč / 6 měsíců pouze zakázky**; **250 000 Kč/rok kompletní** | Důležité pro datové náklady a licenční strategii | https://www.hlidacstatu.cz/cenik |
+| QCM Portál Dodavatele | **Aktuální veřejný ceník spolehlivě neověřen** | Tarify + chystaný balíček Business; nebrat historických 2 500 Kč/rok jako nynější cenu | https://www.portaldodavatele.cz/ |
 
-| Platforma | Model | Cena | Focus |
-|-----------|-------|------|-------|
-| **Hlídač státu** | Neziskovka | **Free** | Transparentnost, občané, novináři |
-| **Portal Dodavatele** | QCM | 2.5K Kč/rok | Agregace z Vhodné uveřejnění |
+Pozn.: nejde o skutečné zaplacené ceny enterprise kontraktů; tarify se liší počtem uživatelů, zdroji, workflow, daty i fakturací. Akční ceny nelze mechanicky extrapolovat na celý trh.
 
----
+## 4. Hloubkové profily
 
-## 2. HLÍDAČ STÁTU — Detailní analýza
+### 4.1 TenderLab — nejbližší funkční rival
 
-### Co mají
+**Fungování:** (a) firemní profil s referencemi, certifikacemi a kapacitami, (b) agregace a deduplikace NEN/E-ZAK/PVÚ/ISVZ/TED, (c) AI fit skóre 0–100, (d) AI čtení dokumentace a kvalifikační gap analýza, (e) pipeline/checklisty/dokumenty, (f) návrh nabídky v DOCX, (g) odborný servis s lidskou přípravou kompletní nabídky.
 
-**Data:**
-- 8.5M smluv (39 bil. Kč)
-- 1.5M veřejných zakázek
-- 500+ mld. Kč dotací ročně
-- 60K+ profilů firem a úřadů
-- 40+ datasetů veřejně dostupných
+**Dobře:** silný end-to-end příběh; propojení kvalifikace firmy s příležitostí; transparentní software pricing; možnost upsellu na službu.
 
-**Features:**
-- Full-text search s pokročilou syntaxí (ICO, CPV, cena, datum)
-- 19 sektorových filtrů
-- K-Index (rizikový scoring zadavatelů)
-- Osoba databáze (politici, vazby na firmy)
-- Email alerty (po registraci)
-- Export do Excelu (po registraci)
-- Bookmarky
-- API (api.hlidacstatu.cz)
-- MCP server pro AI
+**Neověřené mezery:** enterprise SSO, práva v rámci divizí, víceúrovňová interní schvalování, automatická identifikace změn na úrovni požadavků, deep CRM/SharePoint integrace, audit AI rozhodnutí; žádná z absencí nebyla prokázána. Pro software se v podmínkách liší závazek od lidské služby; prověřit právní odpovědnost za výstupy.
 
-**Dopad:**
-- 10 mld. Kč úspor (claimed)
-- 500+ mediálních citací/rok
-- 28K odběratelů newsletteru
-- Dvojnásobný vítěz Křišťálové lupy
+**Threat:** vysoká produktová. Nutné demo na reálné komplikované zakázce a písemná nabídka enterprise.
 
-### Co jim CHYBÍ (= příležitost pro Tendry)
+**Zdroje:** https://tenderlab.cz/ ; https://tenderlab.cz/terms
 
-| Gap | Popis | Příležitost |
-|-----|-------|-------------|
-| **AI matching** | Žádné personalizované doporučování | "Zakázky pro tebe" |
-| **Workflow** | Jen data, žádný bid management | Sales + Bid Studio |
-| **Early signals** | Jen publikované zakázky | Pre-RFP intelligence |
-| **Decision-maker kontakty** | Žádné kontakty na lidi | Database kontaktů |
-| **Win rate analytics** | Žádná predikce úspěšnosti | "Šance na výhru: 73%" |
-| **Competitor intel** | Základní info o vítězích | Kdo soutěží, jejich historie |
-| **Expiring contracts** | Žádné predikce renewals | Upozornění 12-24 měsíců předem |
-| **Monetizace** | Free only, donor-funded | Prostor pro premium |
+### 4.2 QCM / Portál Dodavatele — největší infrastrukturní a distribuční rival
 
-### Jejich cílová skupina
+**Fungování:** rozhraní nad více e-nástroji, relevantní filtry a hlídače, upozornění, historie zakázek, návaznost na E-ZAK a podání nabídky, je-li u konkrétního řízení podporováno. Skupina QCM provozuje E-ZAK a další zadávací produkty.
 
-- **Primární:** Občané, novináři, výzkumníci (transparency focus)
-- **Sekundární:** Dodavatelé (ale ne priorita)
-- **Mission:** "Hlídací pes" státu, ne sales tool
+**Novinka:** QCM na **20. října 2026 10:00–10:45** výslovně ohlašuje představení nové generace Portálu Dodavatele a Business analytiky; předvedení zatím **není důkaz**, že je celé řešení nasazené a dostupné dnes.
 
-### SWOT Hlídače státu
+**Dobře:** distribuce u veřejných zadavatelů a dodavatelů, české procesy a legislativa, přímé workflow do zadávacích systémů.
 
-| Strengths | Weaknesses |
-|-----------|------------|
-| Největší dataset v ČR | Žádný workflow pro dodavatele |
-| Silná brand awareness | UX pro power users |
-| Free = velká adopce | Závislost na donorech |
-| API dostupné | Žádné AI features |
+**Neověřené mezery:** intrafiremní enterprise schvalování, práce s neveřejnou znalostní bází dodavatele, prediktivní obchodní rozhodování na úrovni portfolia příležitostí.
 
-| Opportunities | Threats |
-|---------------|---------|
-| Mohli by monetizovat | Nový hráč s lepším UX |
-| Enterprise tier | AI-native konkurent |
+**Threat:** vysoká strategická. Priorita: webinář a požadavek na nabídku se scénářem 10+ uživatelů / více divizí.
 
----
+**Zdroje:** https://www.portaldodavatele.cz/ ; https://skoleni.qcm.cz/predstaveni-portalu-dodavatele-1026/
 
-## 3. NEN — Detailní analýza
+### 4.3 NENDE — levný AI monitoring
 
-### Co je NEN
+**Fungování:** filtrování podle CPV/NUTS/zadavatele, e-mail alerty, CSV a 30–60denní historie, radar končících smluv; Premium sumarizuje zadávací dokumentaci, kvalifikaci a termíny.
 
-Národní elektronický nástroj — **povinný** pro většinu veřejných zakázek v ČR.
+**Dobře:** nízká jasná roční cena, rychlý onboarding, silný value for money.
 
-**Statistiky:**
-- 24,659 zadavatelů
-- 42,769 dodavatelů  
-- 272,878 zakázek
-- 2,164 mld. Kč hodnota
+**Neověřené mezery:** dlouhá retrospektiva, komplexní týmová pipeline, rozsáhlé integrace, příprava nabídky a kalibrovaný model pravděpodobnosti úspěchu.
 
-### UX problémy (z uživatelských zkušeností)
+**Threat:** vysoká cenová pro „AI shrnutí + renewal radar“, nižší pro skutečný enterprise tým.
 
-| Problém | Důsledek |
-|---------|----------|
-| Složitá registrace | Bariéra pro malé dodavatele |
-| Nepřehledné rozhraní | Těžké najít relevantní zakázky |
-| Zaměření na zadavatele | Dodavatelská strana podceněna |
-| Žádné alerting | Musíš aktivně hledat |
-| Státní byrokracie | Pomalý vývoj |
+**Zdroj:** https://nende.cz/cs/cenik
 
-### Příležitost
+### 4.4 dZakazky.cz — specialista na VZMR
 
-NEN má DATA, ale špatný UX pro dodavatele. Tendry může být "lepší frontend" nad NEN daty.
+**Fungování:** sběr ze strojově čitelných profilů, čištění nerelevantních zakázek, ranní monitoring, historické výsledky/konkurenti, Kanban pipeline, webhooky do CRM a Slacku. Provozovatel uvádí >25 000 monitorovaných účtů a 80% pokrytí VZMR; **jde o tvrzení dodavatele**.
 
----
+**Dobře:** konkrétní ICP a cena, praktické integrace, filtrování přehnaně velkých řízení pro malé dodavatele.
 
-## 4. QCM SKUPINA — Dominantní hráč
+**Neověřené mezery:** velké komplexní zakázky, víceúrovňové schvalování, právní kontrola rozpracované nabídky.
 
-### Portfolio
+**Threat:** spíše nepřímá pro enterprise, důležitá pro přehodnocení unikátnosti Kanbanu/webhooků.
 
-QCM s.r.o. (Brno) provozuje:
-- **Vhodné uveřejnění** — 33% trhu zadavatelů
-- **E-ZAK** — 62K uživatelů, 13K zadavatelů
-- **Portal Dodavatele** — agregátor pro dodavatele
+**Zdroj:** https://dzakazky.cz/
 
-### Pricing (Vhodné uveřejnění)
+### 4.5 NajdiVZ — agregace a datové integrace
 
-**Pro zadavatele:**
-| Tier | Cena/rok | Zakázky |
-|------|----------|---------|
-| Free | 0 Kč | max 4 |
-| Profi | 2,000 Kč | max 19 |
-| Premium | 8,000 Kč | 20+ |
-| Full | 12,000 Kč | unlimited |
-| E-ZAK Smart | 20,000 Kč | + pokročilé funkce |
+**Fungování:** vyhledávání/monitoring, vlastní filtry, datové exporty a API pro interní zpracování.
 
-**Pro dodavatele:**
-| Tier | Cena/rok | Features |
-|------|----------|----------|
-| Free | 0 Kč | Základní přístup |
-| Profi | 2,500 Kč | Profil, alerty, neomezení uživatelé |
+**Dobře:** zákazník může využívat data v existujících interních systémech; jasné cenové hladiny.
 
-### Silné stránky QCM
+**Neověřené mezery:** AI kvalifikační kontrola, kvalitní bid/no-bid nad interní ekonomikou a reference-based proposal drafting.
 
-- **Tržní dominance** — 33% zadavatelů
-- **Integrace** — propojení zadavatel↔dodavatel
-- **Etablovaný** — roky na trhu
-- **Compliance** — certifikovaný nástroj
+**Threat:** střední pro samotný „intelligence feed“.
 
-### Slabé stránky QCM
+**Zdroje:** https://www.najdivz.cz/ ; https://www.najdivz.cz/balicky-sluzeb
 
-- **Legacy UX** — staré rozhraní
-- **Žádné AI** — tradiční přístup
-- **Focus na zadavatele** — dodavatelé jsou afterthought
-- **Lokální** — jen ČR
+### 4.6 Veritra — multicountry data a integrační vrstva
 
----
+**Fungování:** jednotlivé sledované země, alerty, REST API, webhooky a AI beta pro relevanci a některé dokumenty.
 
-## 5. PROEBIZ — CEE Ambice
+**Dobře:** EU rozsah, cena za zemi, integrace.
 
-### Portfolio
+**Neověřené mezery:** hluboká česká kvalifikační logika, proposal governance a řízení větších týmů.
 
-- **JOSEPHINE** — veřejné zakázky (CZ, SK, PL, HR)
-- **Tenderbox** — korporátní nákup
-- **Marquet** — interní katalogy
-- **Houston** — support systém
+**Threat:** střední, zejména pro geografickou expanzi.
 
-### Diferenciace
+**Zdroje:** https://www.veritra.io/nl/pricing ; https://www.veritra.io/vop
 
-- **Multi-country** — CZ/SK/PL/HR
-- **Enterprise focus** — velké firmy, státní podniky
-- **Vzdělávání** — MBA veřejné zakázky, konference
-- **Modularita** — 16+ typů aukcí
+### 4.7 TenderSignal — specializace IT v CEE
 
-### Klienti
+**Fungování:** IT zakázky CZ/SK/PL, relevance vůči profilu, shortlist a podklady k bid/no-bid, odkazy k originálům.
 
-ČD, OMV, O2, nemocnice, municipality — **velcí hráči**.
+**Dobře:** vertikální focus, vysvětlitelnost shortlistu, jednoduché rozhodnutí o dalším průzkumu.
 
-### Pricing
+**Neověřené mezery:** multi-department enterprise workflow a generování plně validované nabídky.
 
-Není veřejný. Trial 2 měsíce zdarma (BluePilot).
+**Threat:** relevantní při vstupu do IT enterprise segmentu.
 
----
+**Zdroj:** https://tendersignal.eu/cz
 
-## 6. GEMIN — Free Alternativa
+### 4.8 Hello Tender — evropské AI discovery a příprava
 
-### Co nabízí
+**Fungování:** firemní profil, evropské vyhledávání, AI insights, dokumenty a vedené checklisty; Pro umožňuje max. 5 přípravných workflow denně pro podporované dokumentace.
 
-- "Elektronické tržiště nové generace"
-- **Free** pro zadavatele i dodavatele
-- 55K+ zakázek
-- Jednoduché rozhraní
+**Dobře:** freemium, celoevropská nabídka, nízký práh vstupu.
 
-### Business model
+**Neověřené mezery:** lokální česká přesnost, enterprise role, detailní integrace a právní garance.
 
-Nejasný — možná dotace, možná upsell služeb.
+**Threat:** částečná konkurence přeshraničnímu AI tender SaaS.
 
-### Relevance
+**Zdroj:** https://www.hellotender.eu/en/pricing
 
-Menší hráč, ale zajímavý jako free alternativa.
+### 4.9 Bezplatná a infrastrukturní konkurence
+
+- **Zakázky GOV:** státní vyhledávač se sémantickým hledáním, alerty a podporovaným elektronickým podáním v části zadávacích nástrojů; není to univerzální náhrada všech e-nástrojů. https://zakazky.gov.cz/
+- **Hlídač státu:** historická data, smlouvy, zakázky, veřejná analytika a API. Komerční licenční náklady mohou být relevantní pro datový stack. https://www.hlidacstatu.cz/ ; https://www.hlidacstatu.cz/cenik
+- **JOSEPHINE, E-ZAK, Tender arena, PVÚ, TENDERBOX:** většinou nástroje zadavatelské administrace, komunikace a podání. Neklasifikovat je automaticky jako přímou náhradu interního capture/bid managementu dodavatele.
+
+## 5. Feature matrix (deklarováno / částečně / veřejně neověřeno)
+
+| Produkt | AI matching | AI rozbor dokumentů | Konkurenční historie | Interní bid pipeline | API/webhook |
+|---|---|---|---|---|---|
+| TenderLab | Ano | Ano | Ano | Ano | ? |
+| QCM Portál Dodavatele | Částečně / připravovaná analytika | ? | Ano / Business | Část (vazba na podání) | ? |
+| NENDE | Filtry | Ano (Premium) | ? | ? | Export CSV |
+| dZakazky | AI priority/filtr | ? | Ano | Kanban | Ano |
+| NajdiVZ | Filtry | ? | ? | ? | Ano |
+| Veritra | Beta | Beta | ? | ? | Ano |
+| TenderSignal | Ano | Shortlist/summary | Historie | Shortlist | ? |
+| Hello Tender | Ano | Ano | Část | Checklist | ? |
+| Zakázky GOV | Sémantické hledání | Rozvoj AI | Část | Elektronické podání části zakázek | ? |
+| Hlídač státu | Fulltext/filtry | ? | Ano | ? | Ano |
+
+„?“ není důkaz, že funkcionalita neexistuje. Marketingové „šance na výhru“ neznamenají kalibrovanou P(win).
+
+## 6. Potenciální enterprise mezery — hypotézy k testování, ne potvrzená whitespace
+
+1. **Strategické bid/no-bid:** explicitní vyhodnocení profitability, kapacit, referencí a governance; odlišit fit skóre od odhadované P(win).
+2. **Týmový capture workflow:** role, gate reviews, vlastní schvalovací matice, divize, externí partneři, audit.
+3. **Interní knowledge layer:** RFP požadavek -> interní důkaz -> schválený response snippet -> citace -> verze; ověřit bezpečnost.
+4. **Sledování změn dokumentace:** automatický diff požadavků, určení dopadu na pracovní dokumenty, vlastník a potvrzení.
+5. **Pre-RFP intelligence:** plány zadavatelů, rozpočtové signály, nákupní cykly a končící rámce; data s pravděpodobností, proveniencí a právním režimem.
+6. **Návaznost na existující CRM / Teams / SharePoint:** nebudovat další izolovaný portál, pokud zákazník chce integrovanou vrstvu.
+7. **Post-award learning:** evidence výsledku, důvodů výhry/prohry, lessons learned a feedback do dalšího bid/no-bid.
+
+Pro všechny body je potřeba prokázat bolest, dostupnost dat a ochotu platit; konkurent některé může mít ve svém neveřejném enterprise tarifu.
+
+## 7. Doporučený battle-test / validace
+
+**Testovací sada:** 30–100 identických skutečných zakázek z několika oborů včetně náročných příloh, zrušených řízení a dodatků. Metriky: recall relevancí, precision, latence zveřejnění -> alert, chybně přehlédnuté kvalifikační podmínky, kvalita zdrojových citací, čas na připravený go/no-go podklad, reálné náklady/tendr.
+
+**Prioritní demoverze:**
+1. TenderLab: 100stránková dokumentace; reference a certifikace; kvalifikační gap; schválení; revize podkladů; SSO/integrace.
+2. QCM: účastnit se webináře 20. 10.; ověřit dostupnost Business analytiky, kontrakty/uhrazené ceny, multi-team workflow, pricing.
+3. NajdiVZ/Veritra: API specifikace, inkrementální aktualizace, licenční omezení, dostupnost historických polí.
+4. NENDE: kvalita radarů a coverage, prověřit falešné renewaly.
+5. Design partneři: požádat vedoucího tender týmu, aby popsal **poslední tři skutečná** go/no-go rozhodnutí, interní předávání a časové ztráty; nedotazovat se jen „chtěl byste AI“.
+
+## 8. Pracovní positioning a protiargument
+
+Možné positioningové tvrzení (k ověření): „Endpaper propojuje veřejnou procurement intelligence s interními daty a procesy velkého dodavatele a dává týmu auditovatelný podklad pro výběr, přípravu a vyhodnocení zakázek.“
+
+**Protiargument:** Zákazník může proces již dostatečně pokrývat kombinací QCM/TenderLab, Salesforce/Teams/SharePoint a interních specialistů. Pokud nepřidáme měřitelnou hodnotu, jde jen o další UI / další seat licenci.
+
+## 9. Doporučené další kroky
+
+- [ ] Demoverze TenderLab, QCM a alespoň jednoho API-first poskytovatele.
+- [ ] Vyžádat reálnou enterprise cenu a detail bezpečnostních/integr. podmínek.
+- [ ] Dokumentovat v benchmarku „marketing claim vs. test evidence vs. unknown“.
+- [ ] Ověřit prioritní pain points s velkými českými dodavatelskými týmy, ne jen s mikrofirmami.
+- [ ] Následovat globální konkurencí zejména v USA (GovWin, HigherGov, GovDash, GovTribe, Govly, Awarded AI), UK (Tussell, Stotles) a Evropě (Mercell, Tendium).
 
 ---
-
-## 7. SROVNÁNÍ FEATURES
-
-| Feature | Hlídač | NEN | QCM | PROEBIZ | Gemin |
-|---------|--------|-----|-----|---------|-------|
-| Tender search | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Email alerts | ✅ | ❌ | ✅ | ✅ | ? |
-| AI matching | ❌ | ❌ | ❌ | ❌ | ❌ |
-| Bid management | ❌ | ✅ | ✅ | ✅ | ✅ |
-| Analytics | ✅ | ❌ | ❌ | ❌ | ❌ |
-| Risk scoring | ✅ (K-Index) | ❌ | ❌ | ❌ | ❌ |
-| API | ✅ | ❌ | ? | ? | ❌ |
-| Free tier | ✅ | ✅ | ✅ | Trial | ✅ |
-| Decision-maker DB | ❌ | ❌ | ❌ | ❌ | ❌ |
-| Expiring contracts | ❌ | ❌ | ❌ | ❌ | ❌ |
-| Win prediction | ❌ | ❌ | ❌ | ❌ | ❌ |
-
-### GAP ANALYSIS — Co nikdo nedělá
-
-1. **AI-powered matching** — personalizované doporučování
-2. **Early signals** — pre-RFP intelligence
-3. **Decision-maker kontakty** — kdo rozhoduje
-4. **Expiring contracts** — predikce renewals
-5. **Win rate prediction** — šance na úspěch
-6. **Competitor analysis** — kdo soutěží, jejich historie
-7. **Bid workflow** — end-to-end pro dodavatele (ne zadavatele)
-8. **AI bid assistant** — draft nabídky
-
----
-
-## 8. POSITIONING PRO TENDRY
-
-### Kde je prostor
-
-```
-                    ZADAVATELÉ ←————————————→ DODAVATELÉ
-                         |                        |
-    E-nástroje    [QCM, PROEBIZ, NEN]            |
-    (workflow)           |                        |
-                         |                        |
-    Intelligence         |              [TENDRY - příležitost]
-    (data + AI)   [Hlídač státu]                  |
-                    (transparency)         (revenue focus)
-```
-
-### Tendry positioning
-
-**"Stotles pro ČR"** — AI-powered sales intelligence pro dodavatele:
-
-| Dimension | Hlídač státu | Tendry |
-|-----------|--------------|--------|
-| Mission | Transparentnost | Pomoci vyhrát |
-| Target | Občané, novináři | Dodavatelé |
-| Value prop | "Víš co se děje" | "Vyhraješ víc zakázek" |
-| Business model | Donations | SaaS subscription |
-| Tech | Traditional | AI-native |
-
-### Diferenciace
-
-1. **AI matching** — "Zakázky pro tebe, ne všechny zakázky"
-2. **Workflow** — od discovery po bid submission
-3. **Intelligence** — early signals, win prediction, competitor intel
-4. **Monetizace** — jasný SaaS model
-
----
-
-## 9. COMPETITIVE MOAT
-
-### Jak se bránit konkurenci
-
-| Potenciální reakce | Naše obrana |
-|--------------------|-------------|
-| Hlídač přidá AI | Jejich mission je transparentnost, ne sales |
-| QCM přidá intelligence | Legacy tech, focus na zadavatele |
-| PROEBIZ expanduje | Enterprise focus, ne SMB |
-| Mercell vstoupí do ČR | Global player, lokální nuance |
-
-### Moat strategie
-
-1. **Data moat** — agregace z více zdrojů + vlastní data
-2. **AI moat** — fine-tuned modely na CZ zakázky
-3. **Network effect** — víc uživatelů = lepší matching
-4. **Switching cost** — workflow integrace, historická data
-
----
-
-## 10. AKČNÍ KROKY
-
-### Competitive research TODO
-
-- [ ] Vytvořit účet na Hlídači státu — test UX, features
-- [ ] Registrovat se do NEN jako dodavatel — pain points
-- [ ] Vyzkoušet Portal Dodavatele (QCM) — co nabízí za 2.5K
-- [ ] Požádat o PROEBIZ demo — enterprise features
-- [ ] Projít Gemin — free alternativa
-
-### Validation questions pro rozhovory
-
-1. "Používáte Hlídač státu? Co vám tam chybí?"
-2. "Jak je těžké se orientovat v NEN?"
-3. "Platíte za nějaký monitoring zakázek? Kolik?"
-4. "Co by vám pomohlo najít víc relevantních zakázek?"
-5. "Kdyby vám AI doporučovala zakázky které můžete vyhrát, kolik byste platili?"
-
-### Pricing benchmark
-
-| Konkurent | Cena dodavatel | Co dostaneš |
-|-----------|----------------|-------------|
-| Hlídač státu | Free | Data, alerty |
-| Portal Dodavatele | 2,500 Kč/rok | Agregace, profil |
-| **Tendry target** | 990-4,990 Kč/měsíc | AI matching, workflow, intel |
-
-**Závěr:** Prostor pro 10-20x premium nad Hlídačem s jasnou value proposition.
+*Poznámka k výzkumu: fakta jsou podložena oficiálními produktovými stránkami uvedenými u každé firmy; dostupná literatura nepostačuje k nezávislému ověření výkonnosti, cen enterprise smluv ani zákaznické retence.*
